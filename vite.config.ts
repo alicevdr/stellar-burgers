@@ -17,7 +17,7 @@ export default defineConfig(({ mode }) => {
     }), tsconfigPaths()],
     base: '',
     define: {
-      'process.env.BURGER_API_URL': JSON.stringify(env.BURGER_API_URL ?? '')
+      'process.env.BURGER_API_URL': JSON.stringify(env.VITE_BURGER_API_URL ?? '')
     },
     server: {
       open: true

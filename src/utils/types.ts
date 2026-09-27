@@ -49,5 +49,12 @@ export type TFeedState = {
   total: number;
   totalToday: number;
   isLoading: boolean;
-  error: unknown;
+  error: string | null;
 };
+
+export type TOrdersState = {
+  orders: TOrder[];
+  isLoading: boolean;
+  error:  string | null;
+};
+

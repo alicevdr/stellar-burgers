@@ -7,3 +7,5 @@ export { ResetPassword } from './reset-password';
 export { Profile } from './profile';
 export { ProfileOrders } from './profile-orders';
 export { NotFound404 } from './not-found-404';
+export { IngredientPage } from './ingredient-page';
+export { OrderPage } from './order-page';
