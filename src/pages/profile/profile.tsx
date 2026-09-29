@@ -1,24 +1,25 @@
 import { ProfileUI } from '@ui-pages';
 import { type SyntheticEvent, useEffect, useState } from 'react';
+import { updateUser } from '@slices/user-slice';
+import { useDispatch, useSelector } from '@services/store';
+import type { RootState } from '@services/store';
 
 export const Profile = (): React.JSX.Element => {
-  /** TODO: Взять переменную из стора */
-  const user = {
-    name: '',
-    email: '',
-  };
-
+ 
+  const user = useSelector((state: RootState) => state.user.user);
+  const error = useSelector((state: RootState) => state.user.error);
+  const dispatch = useDispatch();
   const [formValue, setFormValue] = useState({
-    name: user.name,
-    email: user.email,
+    name: user?.name ?? '',
+    email: user?.email ?? '',
     password: '',
   });
 
   useEffect(() => {
     setFormValue((prevState) => ({
       ...prevState,
-      name: user?.name || '',
-      email: user?.email || '',
+      name: user?.name ?? '',
+      email: user?.email ?? '',
     }));
   }, [user]);
 
@@ -29,13 +30,25 @@ export const Profile = (): React.JSX.Element => {
 
   const handleSubmit = (e: SyntheticEvent): void => {
     e.preventDefault();
+
+    const dataToUpdate: { name?: string; email?: string; password?: string } = {};
+    if (formValue.name !== user?.name) dataToUpdate.name = formValue.name;
+    if (formValue.email !== user?.email) dataToUpdate.email = formValue.email;
+    if (formValue.password) dataToUpdate.password = formValue.password;
+
+    dispatch(updateUser(dataToUpdate))
+      .unwrap()
+      .then(() => {
+        setFormValue((prev) => ({ ...prev, password: '' }));
+      })
+      .catch(() => { });
   };
 
   const handleCancel = (e: SyntheticEvent): void => {
     e.preventDefault();
     setFormValue({
-      name: user.name,
-      email: user.email,
+      name: user?.name ?? '',
+      email: user?.email ?? '',
       password: '',
     });
   };
@@ -51,6 +64,7 @@ export const Profile = (): React.JSX.Element => {
     <ProfileUI
       formValue={formValue}
       isFormChanged={isFormChanged}
+      updateUserError={error ?? undefined}
       handleCancel={handleCancel}
       handleSubmit={handleSubmit}
       handleInputChange={handleInputChange}
