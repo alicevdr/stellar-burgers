@@ -15,18 +15,19 @@ const initialState: TOrdersState = {
   error: null,
 };
 
-export const fetchUserOrders = createAsyncThunk<TOrder[], void, { rejectValue: string }>(
-  'orders/fetchUser',
-  async (_, { rejectWithValue }) => {
-    try {
-      return await getOrdersApi();
-    } catch (err) {
-      return rejectWithValue(
-        err instanceof Error ? err.message : 'Не удалось загрузить историю'
-      );
-    }
+export const fetchUserOrders = createAsyncThunk<
+  TOrder[],
+  void,
+  { rejectValue: string }
+>('orders/fetchUser', async (_, { rejectWithValue }) => {
+  try {
+    return await getOrdersApi();
+  } catch (err) {
+    return rejectWithValue(
+      err instanceof Error ? err.message : 'Не удалось загрузить историю'
+    );
   }
-);
+});
 
 const ordersSlice = createSlice({
   name: 'orders',

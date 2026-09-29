@@ -1,7 +1,7 @@
 import { BurgerConstructorUI } from '@ui';
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { clearConstructor } from '@slices/burger-constructor-slice';
+
 import { clearOrderModal, createOrder } from '@slices/order-slice';
 import { useDispatch, useSelector } from '@services/store';
 import type { RootState } from '@services/store';
@@ -24,7 +24,6 @@ export const BurgerConstructor = (): React.JSX.Element | null => {
   const user = useSelector((state: RootState) => state.user.user);
 
   const onOrderClick = (): void => {
-
     if (!constructorItems.bun || orderRequest) return;
     if (!user) {
       navigate('/login');
@@ -33,8 +32,9 @@ export const BurgerConstructor = (): React.JSX.Element | null => {
 
     const ids = [
       constructorItems.bun._id,
-      ...constructorItems.ingredients.map((item) => item._id),
-      constructorItems.bun._id,   
+      ...constructorItems.ingredients.map(
+        (item: TConstructorIngredient) => item._id),
+      constructorItems.bun._id,
     ];
 
     dispatch(createOrder(ids));
@@ -42,7 +42,6 @@ export const BurgerConstructor = (): React.JSX.Element | null => {
 
   const closeOrderModal = (): void => {
     dispatch(clearOrderModal());
-    dispatch(clearConstructor());
   };
 
   const price = useMemo(

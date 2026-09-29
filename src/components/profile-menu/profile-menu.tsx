@@ -12,7 +12,7 @@ export const ProfileMenu = (): React.JSX.Element => {
     dispatch(logoutUser())
       .unwrap()
       .then(() => {
-        navigate('/', { replace: true });
+        navigate('/login', { replace: true });
       })
       .catch(() => {
       });

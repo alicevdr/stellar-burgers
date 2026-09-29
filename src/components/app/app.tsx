@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
+
 import { fetchIngredients } from '@slices/ingredients-slice';
 import {
   AppHeader,
@@ -31,14 +32,15 @@ const App = (): React.JSX.Element => {
   const location = useLocation();
   const background = location.state?.background;
 
-useEffect(() => {
-  dispatch(fetchIngredients());
-  if (localStorage.getItem('refreshToken')) {
-    dispatch(fetchUser());
-  } else {
-    dispatch(setAuthChecked(true));
-  }
-}, [dispatch]);
+  useEffect(() => {
+    dispatch(fetchIngredients());
+    if (localStorage.getItem('refreshToken')) {
+      dispatch(fetchUser());
+    } else {
+      dispatch(setAuthChecked(true));
+    }
+  }, [dispatch]);
+
   return (
     <div className={styles.app}>
       <AppHeader />
@@ -47,7 +49,16 @@ useEffect(() => {
         <Route path="/feed" element={<Feed />} />
         <Route path="/ingredients/:id" element={<IngredientPage />} />
         <Route path="/feed/:number" element={<OrderPage />} />
-        <Route path="/profile/orders/:number" element={<OrderPage />} />
+
+        {/* ⬇️ ЗАЩИЩЁННЫЙ маршрут */}
+        <Route
+          path="/profile/orders/:number"
+          element={
+            <ProtectedRoute>
+              <OrderPage />
+            </ProtectedRoute>
+          }
+        />
 
         <Route
           path="/login"
