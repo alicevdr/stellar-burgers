@@ -1,11 +1,10 @@
 import { BurgerConstructorUI } from '@ui';
-import { useMemo } from 'react';
+import { useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import { clearOrderModal, createOrder } from '@slices/order-slice';
 import { useDispatch, useSelector } from '@services/store';
+import { clearConstructor} from '@slices/burger-constructor-slice';
 import type { RootState } from '@services/store';
-
 import type { TConstructorIngredient } from '@utils-types';
 
 export const BurgerConstructor = (): React.JSX.Element | null => {
@@ -44,6 +43,12 @@ export const BurgerConstructor = (): React.JSX.Element | null => {
     dispatch(clearOrderModal());
   };
 
+useEffect(() => {
+  if (orderModalData) {
+    dispatch(clearConstructor());
+  }
+}, [orderModalData, dispatch]);
+
   const price = useMemo(
     () =>
       (constructorItems.bun ? constructorItems.bun.price * 2 : 0) +
@@ -64,4 +69,5 @@ export const BurgerConstructor = (): React.JSX.Element | null => {
       closeOrderModal={closeOrderModal}
     />
   );
+  
 };
