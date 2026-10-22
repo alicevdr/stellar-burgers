@@ -1,4 +1,8 @@
-import { ingredientsReducer, fetchIngredients } from './ingredients-slice';
+import { 
+  ingredientsReducer, 
+  initialState, 
+  fetchIngredients 
+} from './ingredients-slice';
 import type { TIngredient } from '@utils-types';
 
 const mockIngredients: TIngredient[] = [
@@ -31,31 +35,26 @@ const mockIngredients: TIngredient[] = [
 ];
 
 describe('ingredientsSlice', () => {
-
   test('должен вернуть начальное состояние при вызове с undefined', () => {
-    const initialState = ingredientsReducer(undefined, { type: 'UNKNOWN' });
-    expect(initialState).toEqual({
-      items: [],
-      isLoading: false,
-      error: null,
-    });
+    const state = ingredientsReducer(undefined, { type: 'UNKNOWN' });
+    expect(state).toEqual(initialState); 
   });
 
+
   test('должен вернуть текущее состояние при неизвестном экшене', () => {
-    const currentState = {
-      items: mockIngredients,
-      isLoading: false,
-      error: null,
-    };
-    const newState = ingredientsReducer(currentState, { type: 'UNKNOWN' });
-    expect(newState).toEqual(currentState);
+    const newState = ingredientsReducer(initialState, { type: 'UNKNOWN' });
+    expect(newState).toEqual(initialState); 
   });
 
   test('должен установить isLoading = true при fetchIngredients.pending', () => {
     const action = { type: fetchIngredients.pending.type };
-    const newState = ingredientsReducer(undefined, action);
-    expect(newState.isLoading).toBe(true);
-    expect(newState.error).toBeNull();
+    const newState = ingredientsReducer(initialState, action);
+    
+    expect(newState).toEqual({
+      ...initialState,
+      isLoading: true,
+      error: null,
+    });
   });
 
   test('должен записать ингредиенты при fetchIngredients.fulfilled', () => {
@@ -63,9 +62,13 @@ describe('ingredientsSlice', () => {
       type: fetchIngredients.fulfilled.type,
       payload: mockIngredients,
     };
-    const newState = ingredientsReducer(undefined, action);
-    expect(newState.isLoading).toBe(false);
-    expect(newState.items).toEqual(mockIngredients);
+    const newState = ingredientsReducer(initialState, action);
+    
+    expect(newState).toEqual({
+      ...initialState,
+      isLoading: false,
+      items: mockIngredients,
+    });
   });
 
   test('должен записать ошибку при fetchIngredients.rejected', () => {
@@ -73,8 +76,12 @@ describe('ingredientsSlice', () => {
       type: fetchIngredients.rejected.type,
       payload: 'Ошибка загрузки',
     };
-    const newState = ingredientsReducer(undefined, action);
-    expect(newState.isLoading).toBe(false);
-    expect(newState.error).toBe('Ошибка загрузки');
+    const newState = ingredientsReducer(initialState, action);
+    
+    expect(newState).toEqual({
+      ...initialState,
+      isLoading: false,
+      error: 'Ошибка загрузки',
+    });
   });
 });
