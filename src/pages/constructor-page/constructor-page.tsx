@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
-
 import { BurgerConstructor, BurgerIngredients } from '@components';
 import { fetchIngredients } from '@slices/ingredients-slice';
-import { useDispatch, useSelector } from '@services/store';
 import { Preloader } from '@ui';
+import { useEffect } from 'react';
+
+import { useDispatch, useSelector } from '@services/store';
 
 import styles from './constructor-page.module.css';
 
@@ -13,7 +13,7 @@ export const ConstructorPage = (): React.JSX.Element => {
   const error = useSelector((state) => state.ingredients.error);
 
   useEffect(() => {
-    dispatch(fetchIngredients());
+    void dispatch(fetchIngredients());
   }, [dispatch]);
 
   if (isLoading) return <Preloader />;

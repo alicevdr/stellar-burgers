@@ -6,6 +6,7 @@ const config: Config = {
   roots: ['<rootDir>/src'],
   testMatch: ['**/*.test.ts'],
   moduleNameMapper: {
+    '^@/config$': '<rootDir>/src/config.mock.ts',
     '^@api$': '<rootDir>/src/utils/burger-api',
     '^@api/(.*)$': '<rootDir>/src/utils/burger-api/$1',
     '^@slices$': '<rootDir>/src/services/slices',
@@ -33,11 +34,15 @@ const config: Config = {
     '^@ui-pages$': '<rootDir>/src/components/ui/pages',
     '^@ui-pages/(.*)$': '<rootDir>/src/components/ui/pages/$1',
   },
+  
   transform: {
-    '^.+\\.tsx?$': ['ts-jest', {
-      tsconfig: 'tsconfig.test.json',
-      diagnostics: false,
-    }],
+    '^.+\\.tsx?$': [
+      'ts-jest',
+      {
+        tsconfig: 'tsconfig.test.json',
+        diagnostics: false,
+      },
+    ],
   },
 };
 

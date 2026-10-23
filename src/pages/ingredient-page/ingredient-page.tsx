@@ -1,10 +1,12 @@
-import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import { IngredientDetails } from '@components';
 import { fetchIngredients } from '@slices/ingredients-slice';
-import { useDispatch, useSelector } from '@services/store';
-import type { RootState } from '@services/store';
 import { Preloader } from '@ui';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+
+import { useDispatch, useSelector } from '@services/store';
+
+import type { RootState } from '@services/store';
 
 import styles from './ingredient-page.module.css';
 
@@ -16,7 +18,7 @@ export const IngredientPage = (): React.JSX.Element => {
 
   useEffect(() => {
     if (!ingredients.length) {
-      dispatch(fetchIngredients());
+      void dispatch(fetchIngredients());
     }
   }, [dispatch, ingredients.length]);
 

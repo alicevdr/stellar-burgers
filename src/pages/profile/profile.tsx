@@ -1,11 +1,12 @@
+import { updateUser } from '@slices/user-slice';
 import { ProfileUI } from '@ui-pages';
 import { type SyntheticEvent, useEffect, useState } from 'react';
-import { updateUser } from '@slices/user-slice';
+
 import { useDispatch, useSelector } from '@services/store';
+
 import type { RootState } from '@services/store';
 
 export const Profile = (): React.JSX.Element => {
- 
   const user = useSelector((state: RootState) => state.user.user);
   const error = useSelector((state: RootState) => state.user.error);
   const dispatch = useDispatch();
@@ -36,12 +37,12 @@ export const Profile = (): React.JSX.Element => {
     if (formValue.email !== user?.email) dataToUpdate.email = formValue.email;
     if (formValue.password) dataToUpdate.password = formValue.password;
 
-    dispatch(updateUser(dataToUpdate))
+    void dispatch(updateUser(dataToUpdate))
       .unwrap()
       .then(() => {
         setFormValue((prev) => ({ ...prev, password: '' }));
       })
-      .catch(() => { });
+      .catch(() => undefined);
   };
 
   const handleCancel = (e: SyntheticEvent): void => {

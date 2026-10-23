@@ -1,13 +1,4 @@
-import { useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
-
-import { fetchIngredients } from '@slices/ingredients-slice';
-import {
-  AppHeader,
-  ProtectedRoute,
-  ModalOrder,
-  ModalIngredient,
-} from '@components';
+import { AppHeader, ProtectedRoute, ModalOrder, ModalIngredient } from '@components';
 import {
   ConstructorPage,
   Feed,
@@ -21,36 +12,40 @@ import {
   IngredientPage,
   OrderPage,
 } from '@pages';
+import { fetchIngredients } from '@slices/ingredients-slice';
 import { fetchUser, setAuthChecked } from '@slices/user-slice';
+import { useEffect } from 'react';
+import { Routes, Route, useLocation, type Location } from 'react-router-dom';
+
 import { useDispatch } from '@services/store';
 
 import '../../index.css';
+
 import styles from './app.module.css';
 
 const App = (): React.JSX.Element => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const background = location.state?.background;
+  const background = (location.state as { background?: Location })?.background;
 
   useEffect(() => {
-    dispatch(fetchIngredients());
+    void dispatch(fetchIngredients());
     if (localStorage.getItem('refreshToken')) {
-      dispatch(fetchUser());
+      void dispatch(fetchUser());
     } else {
-      dispatch(setAuthChecked(true));
+      void dispatch(setAuthChecked(true));
     }
   }, [dispatch]);
 
   return (
     <div className={styles.app}>
       <AppHeader />
-      <Routes location={background || location}>
+      <Routes location={background ?? location}>
         <Route path="/" element={<ConstructorPage />} />
         <Route path="/feed" element={<Feed />} />
         <Route path="/ingredients/:id" element={<IngredientPage />} />
         <Route path="/feed/:number" element={<OrderPage />} />
 
-        {/* ⬇️ ЗАЩИЩЁННЫЙ маршрут */}
         <Route
           path="/profile/orders/:number"
           element={

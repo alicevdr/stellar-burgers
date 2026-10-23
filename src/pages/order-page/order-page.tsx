@@ -1,5 +1,6 @@
-import { useParams } from 'react-router-dom';
 import { OrderInfo } from '@components';
+import { useParams } from 'react-router-dom';
+
 import styles from './order-page.module.css';
 
 export const OrderPage = (): React.JSX.Element => {

@@ -55,6 +55,5 @@ export type TFeedState = {
 export type TOrdersState = {
   orders: TOrder[];
   isLoading: boolean;
-  error:  string | null;
+  error: string | null;
 };
-

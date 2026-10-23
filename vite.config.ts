@@ -3,24 +3,16 @@ import { checker } from 'vite-plugin-checker';
 import readableClassnames from 'vite-plugin-readable-classnames';
 import sassDts from 'vite-plugin-sass-dts';
 import tsconfigPaths from 'vite-tsconfig-paths';
-import { defineConfig, loadEnv } from 'vite';
+import { defineConfig } from 'vite'; 
 
-export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), '');
-
-  return {
-    plugins: [checker({
-      typescript: { tsconfigPath: 'tsconfig.app.json' }
-    }), react(), readableClassnames(), sassDts({
-      enabledMode: ['development'],
-      esmExport: true
-    }), tsconfigPaths()],
-    base: '',
-    define: {
-      'process.env.BURGER_API_URL': JSON.stringify(env.VITE_BURGER_API_URL ?? '')
-    },
-    server: {
-      open: true
-    },
-  };
+export default defineConfig({
+  plugins: [
+    checker({ typescript: { tsconfigPath: 'tsconfig.app.json' } }),
+    react(),
+    readableClassnames(),
+    sassDts({ enabledMode: ['development'], esmExport: true }),
+    tsconfigPaths(),
+  ],
+  base: '',
+  server: { open: true },
 });

@@ -1,9 +1,10 @@
 import { IngredientsCategoryUI } from '@ui';
 import { useMemo } from 'react';
+
 import { useSelector } from '@services/store';
 
-import type { RootState } from '@services/store'
 import type { TIngredientsCategoryProps } from './type';
+import type { RootState } from '@services/store';
 import type { TIngredient } from '@utils-types';
 
 export const IngredientsCategory = ({
@@ -12,10 +13,7 @@ export const IngredientsCategory = ({
   ingredients,
   ref,
 }: TIngredientsCategoryProps): React.JSX.Element => {
-  
-  const burgerConstructor = useSelector(
-    (state: RootState) => state.burgerConstructor
-  );
+  const burgerConstructor = useSelector((state: RootState) => state.burgerConstructor);
 
   const ingredientsCounters = useMemo(() => {
     const { bun, ingredients } = burgerConstructor;
@@ -24,7 +22,7 @@ export const IngredientsCategory = ({
       if (!counters[ingredient._id]) counters[ingredient._id] = 0;
       counters[ingredient._id]++;
     });
-    if (bun) counters[bun._id] = 2;   // булка учитывается дважды (верх+низ)
+    if (bun) counters[bun._id] = 2; // булка учитывается дважды (верх+низ)
     return counters;
   }, [burgerConstructor]);
 

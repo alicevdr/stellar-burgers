@@ -6,11 +6,13 @@ import {
 } from '@krgaa/react-developer-burger-ui-components';
 import { NavLink } from 'react-router-dom';
 
+// 👇 Возвращаем импорт типа
 import type { TAppHeaderUIProps } from './type';
 
 import styles from './app-header.module.css';
 
-export const AppHeaderUI = ({}: TAppHeaderUIProps): React.JSX.Element => (
+// 👇 Возвращаем деструктуризацию { userName }
+export const AppHeaderUI = ({ userName }: TAppHeaderUIProps): React.JSX.Element => (
   <header className={styles.header}>
     <nav className={`${styles.menu} p-4`}>
       <div className={styles.menu_part_left}>
@@ -56,7 +58,10 @@ export const AppHeaderUI = ({}: TAppHeaderUIProps): React.JSX.Element => (
           {({ isActive }) => (
             <>
               <ProfileIcon type={isActive ? 'primary' : 'secondary'} />
-              <p className="text text_type_main-default ml-2">Личный кабинет</p>
+              <p className="text text_type_main-default ml-2">
+                {/* 👇 ИСПОЛЬЗУЕМ userName ЗДЕСЬ */}
+                {userName ?? 'Личный кабинет'}
+              </p>
             </>
           )}
         </NavLink>

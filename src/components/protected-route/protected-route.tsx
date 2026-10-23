@@ -1,7 +1,9 @@
-import { Navigate, useLocation } from 'react-router-dom';
-import { useSelector } from '@services/store';
-import type { RootState } from '@services/store';
 import { Preloader } from '@ui';
+import { Navigate, useLocation } from 'react-router-dom';
+
+import { useSelector } from '@services/store';
+
+import type { RootState } from '@services/store';
 import type { ReactNode } from 'react';
 
 type ProtectedRouteProps = {
@@ -16,9 +18,7 @@ export const ProtectedRoute = ({
   const location = useLocation();
 
   const user = useSelector((state: RootState) => state.user.user);
-  const isAuthChecked = useSelector(
-    (state: RootState) => state.user.isAuthChecked
-  );
+  const isAuthChecked = useSelector((state: RootState) => state.user.isAuthChecked);
 
   if (!isAuthChecked) {
     return <Preloader />;

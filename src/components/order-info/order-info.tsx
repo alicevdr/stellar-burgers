@@ -1,19 +1,17 @@
+import { getOrderByNumberApi } from '@api';
+import { Preloader, OrderInfoUI } from '@ui';
 import { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { getOrderByNumberApi } from '@api';
-import { Preloader, OrderInfoUI } from '@ui';
 import { useSelector } from '@services/store';
-import type { RootState } from '@services/store';
 
+import type { RootState } from '@services/store';
 import type { TIngredient, TOrder } from '@utils-types';
 
 export const OrderInfo = (): React.JSX.Element => {
   const { number } = useParams();
   const ingredients = useSelector((state: RootState) => state.ingredients.items);
-  const orderModalData = useSelector(
-    (state: RootState) => state.order.orderModalData
-  );
+  const orderModalData = useSelector((state: RootState) => state.order.orderModalData);
 
   const [orderData, setOrderData] = useState<TOrder | null>(null);
   const [isLoading, setIsLoading] = useState(false);

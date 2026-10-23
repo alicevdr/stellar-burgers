@@ -1,8 +1,10 @@
+import { loginUser } from '@slices/user-slice';
 import { LoginUI } from '@ui-pages';
 import { type SyntheticEvent, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { loginUser } from '@slices/user-slice';
+
 import { useDispatch, useSelector } from '@services/store';
+
 import type { RootState } from '@services/store';
 
 export const Login = (): React.JSX.Element => {
@@ -18,14 +20,13 @@ export const Login = (): React.JSX.Element => {
   const handleSubmit = (e: SyntheticEvent): void => {
     e.preventDefault();
 
-    dispatch(loginUser({ email, password }))
+    void dispatch(loginUser({ email, password }))
       .unwrap()
       .then(() => {
-        const from = location.state?.from?.pathname || '/';
-        navigate(from, { replace: true });
+        const from = (location.state as { from?: string })?.from ?? '/';
+        void navigate(from, { replace: true });
       })
-      .catch(() => {
-      });
+      .catch(() => undefined);
   };
 
   return (
