@@ -1,8 +1,10 @@
-import { useEffect } from 'react';
+import { fetchFeeds } from '@slices/feed-slice';
 import { Preloader } from '@ui';
 import { FeedUI } from '@ui-pages';
-import { fetchFeeds } from '@slices/feed-slice';
+import { useEffect } from 'react';
+
 import { useDispatch, useSelector } from '@services/store';
+
 import type { RootState } from '@services/store';
 
 export const Feed = (): React.JSX.Element => {

@@ -1,9 +1,10 @@
-import { useEffect } from 'react';
-
+import { fetchUserOrders } from '@slices/orders-slice';
 import { Preloader } from '@ui';
 import { ProfileOrdersUI } from '@ui-pages';
-import { fetchUserOrders } from '@slices/orders-slice';
+import { useEffect } from 'react';
+
 import { useDispatch, useSelector } from '@services/store';
+
 import type { RootState } from '@services/store';
 
 export const ProfileOrders = (): React.JSX.Element => {

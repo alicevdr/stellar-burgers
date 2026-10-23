@@ -1,8 +1,10 @@
+import { loginUser } from '@slices/user-slice';
 import { LoginUI } from '@ui-pages';
 import { type SyntheticEvent, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { loginUser } from '@slices/user-slice';
+
 import { useDispatch, useSelector } from '@services/store';
+
 import type { RootState } from '@services/store';
 
 export const Login = (): React.JSX.Element => {
@@ -24,8 +26,7 @@ export const Login = (): React.JSX.Element => {
         const from = location.state?.from?.pathname || '/';
         navigate(from, { replace: true });
       })
-      .catch(() => {
-      });
+      .catch(() => {});
   };
 
   return (

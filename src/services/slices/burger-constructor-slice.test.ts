@@ -6,6 +6,7 @@ import {
   moveIngredient,
   clearConstructor,
 } from './burger-constructor-slice';
+
 import type { TIngredient, TConstructorIngredient } from '@utils-types';
 
 const mockBun: TIngredient = {
@@ -53,9 +54,9 @@ describe('burgerConstructorSlice', () => {
       type: addIngredient.type,
       payload: { ...mockBun, id: mockId },
     };
-    
+
     const newState = burgerConstructorReducer(initialState, action);
-    
+
     expect(newState).toEqual({
       ...initialState,
       bun: { ...mockBun, id: mockId },
@@ -64,14 +65,14 @@ describe('burgerConstructorSlice', () => {
 
   test('должен добавить начинку в состояние', () => {
     const mockId = 'mock-main-id';
-    
+
     const action = {
       type: addIngredient.type,
       payload: { ...mockMain, id: mockId },
     };
-    
+
     const newState = burgerConstructorReducer(initialState, action);
-    
+
     expect(newState).toEqual({
       ...initialState,
       ingredients: [{ ...mockMain, id: mockId }],
@@ -83,25 +84,33 @@ describe('burgerConstructorSlice', () => {
       ...initialState,
       ingredients: [{ ...mockMain, id: 'test-id' } as TConstructorIngredient],
     };
-    
+
     const action = removeIngredient('test-id');
     const newState = burgerConstructorReducer(stateWithIngredients, action);
-    
-    expect(newState).toEqual(initialState); 
+
+    expect(newState).toEqual(initialState);
   });
 
   test('должен переместить ингредиент', () => {
-    const item1 = { ...mockMain, id: '1', name: 'Ингредиент 1' } as TConstructorIngredient;
-    const item2 = { ...mockMain, id: '2', name: 'Ингредиент 2' } as TConstructorIngredient;
-    
+    const item1 = {
+      ...mockMain,
+      id: '1',
+      name: 'Ингредиент 1',
+    } as TConstructorIngredient;
+    const item2 = {
+      ...mockMain,
+      id: '2',
+      name: 'Ингредиент 2',
+    } as TConstructorIngredient;
+
     const stateWithIngredients = {
       ...initialState,
       ingredients: [item1, item2],
     };
-    
+
     const action = moveIngredient({ fromIndex: 0, toIndex: 1 });
     const newState = burgerConstructorReducer(stateWithIngredients, action);
-    
+
     expect(newState).toEqual({
       ...initialState,
       ingredients: [item2, item1],
@@ -114,10 +123,10 @@ describe('burgerConstructorSlice', () => {
       bun: { ...mockBun, id: 'bun-id' } as TConstructorIngredient,
       ingredients: [{ ...mockMain, id: 'main-id' } as TConstructorIngredient],
     };
-    
+
     const action = clearConstructor();
     const newState = burgerConstructorReducer(stateWithIngredients, action);
-    
-    expect(newState).toEqual(initialState); 
+
+    expect(newState).toEqual(initialState);
   });
 });

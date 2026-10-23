@@ -1,8 +1,5 @@
-import { 
-  ingredientsReducer, 
-  initialState, 
-  fetchIngredients 
-} from './ingredients-slice';
+import { ingredientsReducer, initialState, fetchIngredients } from './ingredients-slice';
+
 import type { TIngredient } from '@utils-types';
 
 const mockIngredients: TIngredient[] = [
@@ -37,19 +34,18 @@ const mockIngredients: TIngredient[] = [
 describe('ingredientsSlice', () => {
   test('должен вернуть начальное состояние при вызове с undefined', () => {
     const state = ingredientsReducer(undefined, { type: 'UNKNOWN' });
-    expect(state).toEqual(initialState); 
+    expect(state).toEqual(initialState);
   });
-
 
   test('должен вернуть текущее состояние при неизвестном экшене', () => {
     const newState = ingredientsReducer(initialState, { type: 'UNKNOWN' });
-    expect(newState).toEqual(initialState); 
+    expect(newState).toEqual(initialState);
   });
 
   test('должен установить isLoading = true при fetchIngredients.pending', () => {
     const action = { type: fetchIngredients.pending.type };
     const newState = ingredientsReducer(initialState, action);
-    
+
     expect(newState).toEqual({
       ...initialState,
       isLoading: true,
@@ -63,7 +59,7 @@ describe('ingredientsSlice', () => {
       payload: mockIngredients,
     };
     const newState = ingredientsReducer(initialState, action);
-    
+
     expect(newState).toEqual({
       ...initialState,
       isLoading: false,
@@ -77,7 +73,7 @@ describe('ingredientsSlice', () => {
       payload: 'Ошибка загрузки',
     };
     const newState = ingredientsReducer(initialState, action);
-    
+
     expect(newState).toEqual({
       ...initialState,
       isLoading: false,

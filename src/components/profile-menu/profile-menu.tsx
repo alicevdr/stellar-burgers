@@ -1,6 +1,7 @@
+import { logoutUser } from '@slices/user-slice';
 import { ProfileMenuUI } from '@ui';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { logoutUser } from '@slices/user-slice';
+
 import { useDispatch } from '@services/store';
 
 export const ProfileMenu = (): React.JSX.Element => {
@@ -14,8 +15,7 @@ export const ProfileMenu = (): React.JSX.Element => {
       .then(() => {
         navigate('/login', { replace: true });
       })
-      .catch(() => {
-      });
+      .catch(() => {});
   };
 
   return <ProfileMenuUI handleLogout={handleLogout} pathname={pathname} />;

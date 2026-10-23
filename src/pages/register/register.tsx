@@ -1,8 +1,10 @@
+import { registerUser } from '@slices/user-slice';
 import { RegisterUI } from '@ui-pages';
 import { type SyntheticEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { registerUser } from '@slices/user-slice';
+
 import { useDispatch, useSelector } from '@services/store';
+
 import type { RootState } from '@services/store';
 
 export const Register = (): React.JSX.Element => {
@@ -23,8 +25,7 @@ export const Register = (): React.JSX.Element => {
       .then(() => {
         navigate('/', { replace: true });
       })
-      .catch(() => {
-      });
+      .catch(() => {});
   };
 
   return (

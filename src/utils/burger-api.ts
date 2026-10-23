@@ -1,5 +1,7 @@
-import { setCookie, getCookie } from './cookie';
 import { BURGER_API_URL } from '@/config';
+
+import { setCookie, getCookie } from './cookie';
+
 import type { TIngredient, TOrder, TUser } from './types';
 
 const URL = BURGER_API_URL;

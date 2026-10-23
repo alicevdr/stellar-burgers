@@ -1,6 +1,6 @@
+import { getFeedsApi } from '@api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { getFeedsApi } from '@api';
 import type { TOrder } from '@utils-types';
 
 type TFeedState = {

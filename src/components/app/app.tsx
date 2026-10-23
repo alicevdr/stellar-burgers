@@ -1,13 +1,4 @@
-import { useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
-
-import { fetchIngredients } from '@slices/ingredients-slice';
-import {
-  AppHeader,
-  ProtectedRoute,
-  ModalOrder,
-  ModalIngredient,
-} from '@components';
+import { AppHeader, ProtectedRoute, ModalOrder, ModalIngredient } from '@components';
 import {
   ConstructorPage,
   Feed,
@@ -21,10 +12,15 @@ import {
   IngredientPage,
   OrderPage,
 } from '@pages';
+import { fetchIngredients } from '@slices/ingredients-slice';
 import { fetchUser, setAuthChecked } from '@slices/user-slice';
+import { useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
+
 import { useDispatch } from '@services/store';
 
 import '../../index.css';
+
 import styles from './app.module.css';
 
 const App = (): React.JSX.Element => {

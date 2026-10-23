@@ -1,6 +1,5 @@
-import { useNavigate } from 'react-router-dom';
-
 import { IngredientDetails, Modal } from '@components';
+import { useNavigate } from 'react-router-dom';
 
 export const ModalIngredient = (): React.JSX.Element => {
   const navigate = useNavigate();
