@@ -48,22 +48,33 @@ describe('burgerConstructorSlice', () => {
   });
 
   test('должен добавить булку в состояние', () => {
-    const action = addIngredient(mockBun);
+    const mockId = 'mock-bun-id';
+    const action = {
+      type: addIngredient.type,
+      payload: { ...mockBun, id: mockId },
+    };
+    
     const newState = burgerConstructorReducer(initialState, action);
     
     expect(newState).toEqual({
       ...initialState,
-      bun: { ...mockBun, id: expect.any(String) },
+      bun: { ...mockBun, id: mockId },
     });
   });
 
   test('должен добавить начинку в состояние', () => {
-    const action = addIngredient(mockMain);
+    const mockId = 'mock-main-id';
+    
+    const action = {
+      type: addIngredient.type,
+      payload: { ...mockMain, id: mockId },
+    };
+    
     const newState = burgerConstructorReducer(initialState, action);
     
     expect(newState).toEqual({
       ...initialState,
-      ingredients: [{ ...mockMain, id: expect.any(String) }],
+      ingredients: [{ ...mockMain, id: mockId }],
     });
   });
 
