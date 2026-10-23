@@ -20,12 +20,12 @@ export const Register = (): React.JSX.Element => {
   const handleSubmit = (e: SyntheticEvent): void => {
     e.preventDefault();
 
-    dispatch(registerUser({ email, name: userName, password }))
+    void dispatch(registerUser({ email, name: userName, password }))
       .unwrap()
       .then(() => {
-        navigate('/', { replace: true });
+        void navigate('/', { replace: true });
       })
-      .catch(() => {});
+      .catch(() => undefined);
   };
 
   return (

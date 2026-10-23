@@ -21,7 +21,7 @@ export const BurgerConstructor = (): React.JSX.Element | null => {
   const onOrderClick = (): void => {
     if (!constructorItems.bun || orderRequest) return;
     if (!user) {
-      navigate('/login');
+      void navigate('/login');
       return;
     }
 
@@ -31,16 +31,16 @@ export const BurgerConstructor = (): React.JSX.Element | null => {
       constructorItems.bun._id,
     ];
 
-    dispatch(createOrder(ids));
+    void dispatch(createOrder(ids));
   };
 
   const closeOrderModal = (): void => {
-    dispatch(clearOrderModal());
+    void dispatch(clearOrderModal());
   };
 
   useEffect(() => {
     if (orderModalData) {
-      dispatch(clearConstructor());
+      void dispatch(clearConstructor());
     }
   }, [orderModalData, dispatch]);
 

@@ -13,7 +13,7 @@ export const ConstructorPage = (): React.JSX.Element => {
   const error = useSelector((state) => state.ingredients.error);
 
   useEffect(() => {
-    dispatch(fetchIngredients());
+    void dispatch(fetchIngredients());
   }, [dispatch]);
 
   if (isLoading) return <Preloader />;

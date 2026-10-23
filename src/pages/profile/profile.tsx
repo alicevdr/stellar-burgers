@@ -37,12 +37,12 @@ export const Profile = (): React.JSX.Element => {
     if (formValue.email !== user?.email) dataToUpdate.email = formValue.email;
     if (formValue.password) dataToUpdate.password = formValue.password;
 
-    dispatch(updateUser(dataToUpdate))
+    void dispatch(updateUser(dataToUpdate))
       .unwrap()
       .then(() => {
         setFormValue((prev) => ({ ...prev, password: '' }));
       })
-      .catch(() => {});
+      .catch(() => undefined);
   };
 
   const handleCancel = (e: SyntheticEvent): void => {

@@ -13,7 +13,7 @@ export const ProfileOrders = (): React.JSX.Element => {
   const isLoading = useSelector((state: RootState) => state.orders.isLoading);
 
   useEffect(() => {
-    dispatch(fetchUserOrders());
+    void dispatch(fetchUserOrders());
   }, [dispatch]);
 
   if (isLoading && !orders.length) {

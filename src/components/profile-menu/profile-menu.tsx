@@ -13,9 +13,9 @@ export const ProfileMenu = (): React.JSX.Element => {
     dispatch(logoutUser())
       .unwrap()
       .then(() => {
-        navigate('/login', { replace: true });
+        void navigate('/login', { replace: true });
       })
-      .catch(() => {});
+      .catch(() => undefined);
   };
 
   return <ProfileMenuUI handleLogout={handleLogout} pathname={pathname} />;

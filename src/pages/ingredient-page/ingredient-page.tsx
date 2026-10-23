@@ -18,7 +18,7 @@ export const IngredientPage = (): React.JSX.Element => {
 
   useEffect(() => {
     if (!ingredients.length) {
-      dispatch(fetchIngredients());
+      void dispatch(fetchIngredients());
     }
   }, [dispatch, ingredients.length]);
 

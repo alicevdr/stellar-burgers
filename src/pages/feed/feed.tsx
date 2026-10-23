@@ -13,11 +13,11 @@ export const Feed = (): React.JSX.Element => {
   const isLoading = useSelector((state: RootState) => state.feed.isLoading);
 
   useEffect(() => {
-    dispatch(fetchFeeds());
+    void dispatch(fetchFeeds());
   }, [dispatch]);
 
   const handleGetFeeds = (): void => {
-    dispatch(fetchFeeds());
+    void dispatch(fetchFeeds());
   };
 
   if (isLoading && !orders.length) {
